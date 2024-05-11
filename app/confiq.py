@@ -1,7 +1,39 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-host = '172.28.221.122'
-user = 'postgres'
-password = 'postgres'
-db_name = 'bot_local_base'
 
-db_path = f"postgresql+asyncpg://{user}:{password}@{host}:5432/{db_name}"
+class Settings(BaseSettings):
+    BOT_TOKEN: str
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASS: str
+    DB_NAME: str
+
+    @property
+    def DATABASE_URL(self):
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+    model_config = SettingsConfigDict(env_file="../env/main.env", env_file_encoding='utf-8')
+    #  env_file="../env/main.env" - означает выйди в вышестоящую директорию,
+    #  зайди в папку env, читай файл main.env
+
+
+settings = Settings()
+
+
+
+
+
+
+
+
+
+
+
+
+# host = '172.28.221.122'
+# user = 'postgres'
+# password = 'postgres'
+# db_name = 'bot_local_base'
+#
+# db_path = f"postgresql+asyncpg://{user}:{password}@{host}:5432/{db_name}"

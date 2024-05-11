@@ -4,13 +4,13 @@ import user_handlers
 import command_handlers
 from bot_base import init_models
 from keyboards import set_main_menu
-from bot_tock import BOT_TOKEN
+from confiq import settings
 
 # Функция конфигурирования и запуска бота
 async def main():
     await init_models()
     # Инициализируем бот и диспетчер
-    bot = Bot(token=BOT_TOKEN,
+    bot = Bot(token=settings.BOT_TOKEN,
               parse_mode='HTML')
     dp = Dispatcher()
     await set_main_menu(bot)
