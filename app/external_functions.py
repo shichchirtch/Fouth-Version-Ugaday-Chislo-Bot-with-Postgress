@@ -60,6 +60,7 @@ async def cancel_update(user_tg_id: int):
         needed_data.in_game = 0
         needed_data.attempts = 5
         needed_data.game_nummer += 1
+        needed_data.total_games += 1
         await session.commit()
         query_game = await session.execute(select(Game).filter(Game.id == user_tg_id))
         n = query_game.scalar()
@@ -67,7 +68,7 @@ async def cancel_update(user_tg_id: int):
         await session.commit()
 
 async def choosing_number(user_tg_id: int):
-    '''Функция выводит юзера из игры'''
+    '''Функция заполняет таблицу для новой игры'''
     async with session_maker() as session:
         query = await session.execute(select(General).filter(General.id == user_tg_id))
         needed_data = query.scalar()
@@ -103,8 +104,8 @@ async def update_after_user_wins(user_tg_id: int):
         needed_data = query.scalar()
         needed_data.in_game = 0
         needed_data.attempts = 5
-        needed_data.game_nummer += 1
         needed_data.wins += 1
+        needed_data.total_games+=1
         await session.commit()
 
 async def update_game_table(user_tg_id:int):

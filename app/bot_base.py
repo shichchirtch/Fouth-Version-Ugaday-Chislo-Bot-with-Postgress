@@ -1,4 +1,4 @@
-from sqlalchemy import (Integer, String, BigInteger)
+from sqlalchemy import Integer, String, BigInteger
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from confiq import settings
@@ -22,7 +22,7 @@ class General(Base):
     secret_number: Mapped[str] = mapped_column(Integer, default=0)
     attempts: Mapped[int] = mapped_column(Integer, default=5)
     wins: Mapped[int] = mapped_column(Integer, default=0)
-    us_number: Mapped[int] = mapped_column(Integer, nullable=False, unique=False, default=0)
+    total_games: Mapped[int] = mapped_column(Integer, nullable=False, unique=False, default=0)
 
 class Game(Base):
     __tablename__ = 'game'
